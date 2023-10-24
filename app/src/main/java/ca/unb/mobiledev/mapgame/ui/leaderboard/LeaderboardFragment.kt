@@ -23,7 +23,12 @@ class LeaderboardFragment : Fragment() {
         val users = listOf(
             User("John", 1000),
             User("Alice", 750),
-            User("Bob", 500)
+            User("Bob", 500),
+            User("David",470),
+            User("Eve",400),
+            User("Frank",350),
+            User("Grace",325),
+            User("Hannah",280)
         )
 
         val userListLayout = root.findViewById<LinearLayout>(R.id.userListLayout)
@@ -41,18 +46,10 @@ class LeaderboardFragment : Fragment() {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            usernameTextView.text = "Username: ${user.username}"
+            usernameTextView.text = "${user.username}\t" + "\t${user.points}"
             usernameTextView.setPadding(8, 8, 8, 8)
+            usernameTextView.textSize = 48f
             userItemLayout.addView(usernameTextView)
-
-            val pointsTextView = TextView(requireContext())
-            pointsTextView.layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            pointsTextView.text = "Points: ${user.points}"
-            pointsTextView.setPadding(8, 8, 8, 8)
-            userItemLayout.addView(pointsTextView)
 
             userListLayout.addView(userItemLayout)
         }
