@@ -18,6 +18,7 @@ class LoginActivity : AppCompatActivity() {
         const val SHARED_PREFS = "shared_prefs"
         const val EMAIL_KEY = "email_key"
         const val PASSWORD_KEY = "password_key"
+        const val IS_FIRST_LOGIN = "is_first_login"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,21 +30,29 @@ class LoginActivity : AppCompatActivity() {
         val loginBtn = findViewById<Button>(R.id.loginButton)
 
         sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
+        val isFirstLogin = sharedpreferences.getBoolean(IS_FIRST_LOGIN, true)
 
-        loginBtn.setOnClickListener {
-            if (TextUtils.isEmpty(emailEdt.text.toString()) || TextUtils.isEmpty(passwordEdt.text.toString())) {
-                Toast.makeText(this, "Please Enter Email and Password", Toast.LENGTH_SHORT).show()
-            } else {
-                val editor = sharedpreferences.edit()
-                editor.putString(EMAIL_KEY, emailEdt.text.toString())
-                editor.putString(PASSWORD_KEY, passwordEdt.text.toString())
-                editor.apply()
+        if (isFirstLogin) {
+            loginBtn.setOnClickListener {
+                if (TextUtils.isEmpty(emailEdt.text.toString()) || TextUtils.isEmpty(passwordEdt.text.toString())) {
+                    Toast.makeText(this, "Please Enter Email and Password", Toast.LENGTH_SHORT).show()
+                } else {
+                    val editor = sharedpreferences.edit()
+                    editor.putString(EMAIL_KEY, emailEdt.text.toString())
+                    editor.putString(PASSWORD_KEY, passwordEdt.text.toString())
+                    editor.apply()
 
-                // Start the MainActivity or navigate to your app's main functionality.
-                val i = Intent(this, MainActivity::class.java)
-                startActivity(i)
-                finish()
+                    // Start the MainActivity or navigate to your app's main functionality.
+                    val i = Intent(this, MainActivity::class.java)
+                    startActivity(i)
+                    finish()
+                }
             }
+        }
+        else {
+            val i = Intent(this, MainActivity::class.java)
+            startActivity(i)
+            finish()
         }
     }
 }
