@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -32,6 +35,19 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        // Initialize UI elements from the XML layout
+        val cityImage: ImageView = binding.cityImage
+        val hintsText: TextView = binding.hintsText
+        val guessInput: EditText = binding.guessInput
+        val submitGuessButton: Button = binding.submitGuessButton
+
+//        homeViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
+
+        // You can now work with the UI elements as needed.
+
         return root
     }
 
@@ -40,3 +56,4 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
+

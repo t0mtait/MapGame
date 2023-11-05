@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">mapgame</string>
+    <string name="login">Login</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_your_email">Enter your Email</string>
+
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
