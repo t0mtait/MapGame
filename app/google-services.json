@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "686338740594",
+    "project_id": "mapgame-2f1e5",
+    "storage_bucket": "mapgame-2f1e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686338740594:android:7d0a000fec8aa8fedc8deb",
+        "android_client_info": {
+          "package_name": "ca.unb.mobiledev.mapgame"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkpDvlnkGo8w6kLUzOcmg6xIE0cd7LBzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
