@@ -24,10 +24,9 @@ class LeaderboardFragment : Fragment() {
         val notificationsViewModel = ViewModelProvider(this)[LeaderboardViewModel::class.java]
 
         _binding = FragmentLeaderboardBinding.inflate(inflater, container, false)
-        val root: View = binding.ro:ot
 
 
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {
