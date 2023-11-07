@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".SettingsActivity">
+
+
+    <TextView
+        android:text="User Settings"
+        android:textSize="25sp"
+
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="Currently signed in as: "
+        android:id="@+id/currentUser"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content" />
+
+
+
+
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:text="Logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Button>
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>
+

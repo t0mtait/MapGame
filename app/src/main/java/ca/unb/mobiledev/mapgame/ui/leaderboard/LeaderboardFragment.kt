@@ -21,7 +21,7 @@ class LeaderboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel = ViewModelProvider(this)[LeaderboardViewModel::class.java]
+        val leaderboardViewModel = ViewModelProvider(this)[LeaderboardViewModel::class.java]
 
         _binding = FragmentLeaderboardBinding.inflate(inflater, container, false)
 
