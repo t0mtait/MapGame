@@ -25,8 +25,8 @@
 
     <ImageView
         android:id="@+id/cityImage"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="422dp"
+        android:layout_height="331dp"
         android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/city_image_placeholder"
@@ -39,12 +39,12 @@
         android:id="@+id/hintsText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Hints: 0"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cityImage" />
 
@@ -65,7 +65,7 @@
         android:id="@+id/submitGuessButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        Log.d("SettingsActivity", "Logout page onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_settings);
 
@@ -32,7 +33,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (user == null)
         {
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
@@ -46,9 +47,9 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                FirebaseAuth.getInstance().signOut();
+                auth.signOut();
                 Toast.makeText(SettingsActivity.this, "Logged out Successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
