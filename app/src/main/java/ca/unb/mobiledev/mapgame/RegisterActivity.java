@@ -21,6 +21,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import ca.unb.mobiledev.mapgame.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -28,6 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
     Button buttonReg;
     TextView textView;
     FirebaseAuth mAuth;
+
+    FirebaseFirestore db;
 
 
     @Override
@@ -53,12 +58,14 @@ public class RegisterActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         buttonReg = findViewById(R.id.btn_register);
         textView = findViewById(R.id.loginNow);
+        db = FirebaseFirestore.getInstance();
 
         textView.setOnClickListener(new View.OnClickListener()
                                     {
                                         @Override
                                         public void onClick(View view)
                                         {
+
                                             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                             startActivity(intent);
                                             finish();
@@ -97,6 +104,13 @@ public class RegisterActivity extends AppCompatActivity {
                                 {
                                     Toast.makeText(RegisterActivity.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
+
+                                    User newUser = new User(email);
+
+
+                                    String entryId = db.collection("users").count().toString();
+                                    db.collection("users").document(entryId).set(newUser);
+
 
                                 }
                                 else

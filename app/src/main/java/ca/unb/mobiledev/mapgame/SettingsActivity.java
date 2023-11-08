@@ -1,9 +1,12 @@
 package ca.unb.mobiledev.mapgame;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class SettingsActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
-    Button button;
+    Button logout_button;
     TextView textView;
     FirebaseUser user;
 
@@ -24,11 +27,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_settings);
-
+        Log.w(TAG, "Settings activity CREATED");
         auth = FirebaseAuth.getInstance();
-        button = findViewById(R.id.btn_logout);
+        logout_button = findViewById(R.id.btn_logout);
         textView = findViewById(R.id.currentUser);
         user = auth.getCurrentUser();
+
 
         if (user == null)
         {
@@ -39,19 +43,21 @@ public class SettingsActivity extends AppCompatActivity {
         else
         {
             textView.setText("Currently signed in as: " + user.getEmail());
+
+            logout_button.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    auth.signOut();
+                    Toast.makeText(SettingsActivity.this, "Logged out Successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
 
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(SettingsActivity.this, "Logged out Successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
     }
 }
