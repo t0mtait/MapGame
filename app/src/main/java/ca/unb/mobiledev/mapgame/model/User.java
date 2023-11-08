@@ -6,10 +6,13 @@ public class User {
     private String username;
     private int points;
 
+    private int[] solvedChallenges;
+
     public User(String email) {
         this.email = email;
         this.username = email;
         this.points = 0;
+        this.solvedChallenges = null;
     }
 
     public String getUsername() {
