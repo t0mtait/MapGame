@@ -1,12 +1,18 @@
 package ca.unb.mobiledev.mapgame.model;
 
 public class User {
+
+    private String email;
     private String username;
     private int points;
 
-    public User(String username, int points) {
-        this.username = username;
-        this.points = points;
+    private int[] solvedChallenges;
+
+    public User(String email) {
+        this.email = email;
+        this.username = email;
+        this.points = 0;
+        this.solvedChallenges = null;
     }
 
     public String getUsername() {
