@@ -1,7 +1,6 @@
 package ca.unb.mobiledev.mapgame.model;
 
 public class Challenge {
-
     private String solution;
     private String hint;
     private int rewardAmount;
