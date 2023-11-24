@@ -36,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (user == null)
         {
+            Log.d("UserCheck", "User is null. Redirecting to LoginActivity.");
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
