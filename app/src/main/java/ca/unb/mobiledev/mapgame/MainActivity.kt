@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -50,9 +51,15 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                else -> {
+                R.id.navigation_notifications -> {
+                    val intent = Intent(this, LeaderboardActivity::class.java)
+                    startActivity(intent)
                     // Handle other menu items
                     // ...
+                    true
+                }
+                else ->
+                {
                     true
                 }
             }

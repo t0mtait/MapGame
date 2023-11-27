@@ -21,7 +21,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import ca.unb.mobiledev.mapgame.model.User;
 
@@ -36,13 +38,11 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
-        {
+        if (currentUser != null) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
@@ -60,71 +60,73 @@ public class RegisterActivity extends AppCompatActivity {
         textView = findViewById(R.id.loginNow);
         db = FirebaseFirestore.getInstance();
 
-        textView.setOnClickListener(new View.OnClickListener()
-                                    {
-                                        @Override
-                                        public void onClick(View view)
-                                        {
-
-                                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-                                    });
-
-
-        buttonReg.setOnClickListener(new View.OnClickListener()
-        {
+        textView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+        buttonReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 String email, password;
                 email = editTextEmail.getText().toString().trim();
                 password = editTextPassword.getText().toString().trim();
 
-                if(TextUtils.isEmpty(email))
-                {
+                if (TextUtils.isEmpty(email)) {
                     Toast.makeText(RegisterActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(TextUtils.isEmpty(password))
-                {
+                if (TextUtils.isEmpty(password)) {
                     Toast.makeText(RegisterActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>()
-                        {
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
-                            public void onComplete(@NonNull Task<AuthResult> task)
-                            {
-                                if (task.isSuccessful())
-                                {
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
                                     Toast.makeText(RegisterActivity.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
 
                                     User newUser = new User(email);
 
 
-                                    String entryId = db.collection("users").count().toString();
-                                    db.collection("users").document(entryId).set(newUser);
+                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                    CollectionReference usersCollection = db.collection("users");
 
+                                    usersCollection.get().addOnCompleteListener(task2 -> {
+                                        if (task2.isSuccessful()) {
+                                            int count = 0;
+                                            for (QueryDocumentSnapshot document : task2.getResult()) {
+                                                // For each document in the collection, increment the count
+                                                count++;
+                                            }
+                                            String entryId = String.valueOf(count);
 
-                                }
-                                else
-                                {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                            // Now 'count' contains the total number of documents in the collection
+                                            // String entryId = String.valueOf(count);
+                                            db.collection("users").document(entryId).set(newUser);
+                                        } else {
+                                            // If sign in fails, display a message to the user.
+                                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                                    Toast.LENGTH_SHORT).show();
 
+                                        }
+                                    });
                                 }
                             }
+
                         });
             }
-
         });
     }
 }
