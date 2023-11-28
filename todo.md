@@ -15,6 +15,7 @@
 ### COULD DO
 - add a profile picture feature to user profiles
 - add multiple pictures per city (different angles of city etc.)
+- add support for API Levels 32+ (Firebase connectivity issues)
 
 
 ### WON'T BE ABLE TO DO
