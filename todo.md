@@ -7,6 +7,7 @@
 
 ### SHOULD DO
 - add a 'Skip' button on play screen to try a different city
+- add gesture tracking -> SHAKE to skip city ( i think we're supposed to include some sort of gesture in our app according to guidelines)
 - restyle leaderboard screen (bigger username, points on right side?)
 
 
