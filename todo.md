@@ -14,6 +14,7 @@
 
 ### COULD DO
 - add a profile picture feature to user profiles
+- add multiple pictures per city (different angles of city etc.)
 
 
 ### WON'T BE ABLE TO DO
