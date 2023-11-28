@@ -30,8 +30,23 @@
         android:layout_height="wrap_content" />
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newname"
+            android:hint = "Enter new username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/btn_changename"
+        android:text="Change Username"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_height="wrap_content"></Button>
 
     <Button
         android:id="@+id/btn_logout"

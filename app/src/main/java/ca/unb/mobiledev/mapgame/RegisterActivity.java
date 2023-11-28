@@ -74,8 +74,12 @@ public class RegisterActivity extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email, password;
+                String email, password, points;
+                int[] solvedChallenges;
+
                 email = editTextEmail.getText().toString().trim();
+                points = "0";
+                solvedChallenges = null;
                 password = editTextPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
@@ -88,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                mAuth.createUserWithEmailAndPassword(email, password)
+                mAuth.createUserWithEmailAndPassword(email,points)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -97,6 +101,8 @@ public class RegisterActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
 
                                     User newUser = new User(email);
+
+
 
 
                                     FirebaseFirestore db = FirebaseFirestore.getInstance();

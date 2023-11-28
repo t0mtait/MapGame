@@ -32,6 +32,7 @@ public class User {
         return points;
     }
 
+    public void setSolved(int[] solved) { this.solvedChallenges = solved; }
     public void setPoints(String points) {
         this.points = points;
     }
