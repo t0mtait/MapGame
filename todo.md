@@ -4,6 +4,7 @@
 - random level in 'Play' Screen (1st item in navbar) on Startup
 - 'Submit' button logic-checking and point distribution
 - show completed levels / cities in 'Gallery' screen (2nd item in navbar)
+- User registration is not creating 'Username' or 'SolvedChallenges' fields on new User objects
 
 ### SHOULD DO
 - add a 'Skip' button on play screen to try a different city
