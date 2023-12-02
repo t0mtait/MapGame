@@ -1,12 +1,35 @@
 <resources>
-    <!-- Reply Preference -->
+
+    <!-- Array Resource for City Images -->
+    <array name="city_names">
+        <item>New York</item>
+        <item>Paris</item>
+        <item>San Francisco</item>
+        <item>Toronto</item>
+        <item>Sydney</item>
+        <item>Tokyo</item>
+    </array>
+
+    <!-- Array Resource for City Names -->
+    <array name="city_drawables">
+        <item>newyork</item>
+        <item>paris</item>
+        <item>sanfran</item>
+        <item>city_image_placeholder</item>
+        <item>sydney</item>
+        <item>tokyo</item>
+    </array>
+
+    <!-- Array Resource for Reply Values -->
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+    <!-- Array Resource for Reply Entries -->
     <string-array name="reply_entries">
         <item>Reply</item>
         <item>Reply to all</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
-    </string-array>
 </resources>
