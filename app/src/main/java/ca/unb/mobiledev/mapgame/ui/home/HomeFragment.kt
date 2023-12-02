@@ -31,16 +31,16 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
+//        val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+//            textView.text = it
         }
 
         // Initialize UI elements from the XML layout
-        val cityImage: ImageView = binding.cityImage
-        val hintsText: TextView = binding.hintsText
-        val guessInput: EditText = binding.guessInput
-        val submitGuessButton: Button = binding.submitGuessButton
+//        val cityImage: ImageView = binding.cityImage
+//        val hintsText: TextView = binding.hintsText
+//        val guessInput: EditText = binding.guessInput
+//        val submitGuessButton: Button = binding.submitGuessButton
 
 //        homeViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
@@ -56,4 +56,3 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
-

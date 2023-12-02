@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Array Resource for City Images -->
+    <array name="city_images">
+        <item>
+            <name>New York</name>
+            <imageName>newyork</imageName>
+            <drawable>@drawable/newyork</drawable>
+        </item>
+        <item>
+            <name>Paris</name>
+            <imageName>paris</imageName>
+            <drawable>@drawable/paris</drawable>
+        </item>
+        <item>
+            <name>San Francisco</name>
+            <imageName>sanfran</imageName>
+            <drawable>@drawable/sanfran</drawable>
+        </item>
+        <item>
+            <name>Toronto</name>
+            <imageName>city_image_placeholder</imageName>
+            <drawable>@drawable/city_image_placeholder</drawable>
+        </item>
+        <item>
+            <name>Sydney</name>
+            <imageName>sydney</imageName>
+            <drawable>@drawable/sydney</drawable>
+        </item>
+        <item>
+            <name>Tokyo</name>
+            <imageName>tokyo</imageName>
+            <drawable>@drawable/tokyo</drawable>
+        </item>
+    </array>
+
+</resources>
