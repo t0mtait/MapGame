@@ -226,7 +226,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun parseDrawableResourceId(parser: XmlPullParser): Int {
+    private fun parseDrawableResourceId(parser: XmlPullParser): Int
+    {
         val eventType = parser.next()
 
         return if (eventType == XmlPullParser.TEXT) {
