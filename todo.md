@@ -5,7 +5,7 @@
 - COMPLETE 'Submit' button logic-checking
 - show completed levels / cities in 'Gallery' screen (2nd item in navbar)
 - COMPLETE User registration is not creating 'Username' or 'SolvedChallenges' fields on new User objects
-- navbar not working in settings screen
+- navbar not working in settings and leaderboard screen
 - COMPLETE points rewarding
 
 ### SHOULD DO
