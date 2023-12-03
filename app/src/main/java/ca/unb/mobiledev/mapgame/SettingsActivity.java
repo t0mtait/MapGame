@@ -67,7 +67,8 @@ public class SettingsActivity extends AppCompatActivity {
 
             changename_button.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View view)
+                {
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                     // Get the new username from the TextInputEditText

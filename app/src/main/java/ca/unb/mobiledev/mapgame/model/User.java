@@ -1,39 +1,47 @@
 package ca.unb.mobiledev.mapgame.model;
 
+import java.util.List;
+
 public class User {
 
     private String email;
     private String username;
-    private String points;
-
-    private int[] solvedChallenges;
+    private int points;
+    List<Integer> solvedChallenges;
 
     public User()
     {
 
     }
 
-    public User(String email) {
+
+
+    public User(String email)
+    {
         this.email = email;
         this.username = email;
-        this.points = "0";
+        this.points = 0;
         this.solvedChallenges = null;
     }
+
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getEmail() { return email; }
 
-    public String getPoints() {
+    public List<Integer> getSolvedChallenges() { return this.solvedChallenges; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public int getPoints() {
         return points;
     }
 
-    public void setSolved(int[] solved) { this.solvedChallenges = solved; }
-    public void setPoints(String points) {
+    public void setEmail(String email) { this.email = email; }
+    public void setSolved(List<Integer> solved) { this.solvedChallenges = solved; }
+    public void setPoints(int points) {
         this.points = points;
     }
 }

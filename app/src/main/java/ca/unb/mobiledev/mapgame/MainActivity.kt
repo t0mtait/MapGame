@@ -3,9 +3,6 @@ package ca.unb.mobiledev.mapgame
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -13,16 +10,21 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import ca.unb.mobiledev.mapgame.databinding.ActivityMainBinding
-import ca.unb.mobiledev.mapgame.databinding.FragmentHomeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import org.xmlpull.v1.XmlPullParser
 import kotlin.random.Random
-import com.google.firebase.auth.FirebaseAuth
+
 
 // Define the CityInfo data class here
 data class CityInfo(val cityName: String, val imageName: String, val drawableResourceId: Int)
 
 class MainActivity : AppCompatActivity() {
+
+
 
     private lateinit var binding: ActivityMainBinding
 
@@ -35,6 +37,9 @@ class MainActivity : AppCompatActivity() {
         resources.getStringArray(R.array.city_drawables)
     }
 
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private var currentCityName: String = ""
 
     private var currentImageId: Int = 0 // Variable to store the resource ID of the currently displayed image
@@ -233,9 +238,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun awardPoints() {
-        // Add your logic to award points to the user
-        // For example, update a variable to store the user's points
-
+        val db = FirebaseFirestore.getInstance()
+        // Query the users collection for the document with the matching email
+        val userEmail = auth.currentUser?.email
+        db.collection("users")
+            .whereEqualTo("email", userEmail)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        // Update the points field for the found document
+                        document.reference.update("points", FieldValue.increment(100) )
+                            .addOnSuccessListener {
+                                // Handle success
+                                println("Points updated successfully!")
+                            }
+                            .addOnFailureListener { e ->
+                                // Handle failure
+                                println("Failed to update points: ${e.message}")
+                            }
+                    }
+                } else {
+                    // Handle error getting documents
+                    println("Error getting documents: ${task.exception}")
+                }
+            }
     }
 
     private fun displayRandomImage() {

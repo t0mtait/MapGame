@@ -92,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                mAuth.createUserWithEmailAndPassword(email,points)
+                mAuth.createUserWithEmailAndPassword(email,password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -101,6 +101,8 @@ public class RegisterActivity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
 
                                     User newUser = new User(email);
+                                    newUser.setUsername(email);
+                                    newUser.setSolved(null);
 
 
 
