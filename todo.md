@@ -1,12 +1,12 @@
 
 
 ### MUST DO
-- random level in 'Play' Screen (1st item in navbar) on Startup
-- 'Submit' button logic-checking and point distribution
+- COMPLETE random level in 'Play' Screen (1st item in navbar) on Startup
+- COMPLETE 'Submit' button logic-checking
 - show completed levels / cities in 'Gallery' screen (2nd item in navbar)
-- User registration is not creating 'Username' or 'SolvedChallenges' fields on new User objects
+- COMPLETE User registration is not creating 'Username' or 'SolvedChallenges' fields on new User objects
 - navbar not working in settings screen
-- points rewarding
+- COMPLETE points rewarding
 
 ### SHOULD DO
 - add a 'Skip' button on play screen to try a different city
