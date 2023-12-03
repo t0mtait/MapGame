@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         recyclerView.setAdapter(userAdapter);
 
 
-        users.orderBy("points").limit(10).get().addOnCompleteListener(task -> {
+        users.orderBy("points", Query.Direction.DESCENDING).limit(10).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
 
