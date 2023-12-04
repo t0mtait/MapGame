@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity() {
     private var currentCityNameDrawable: String = ""
     private var currentImageId: Int = 0 // Variable to store the resource ID of the currently displayed image
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         Log.d("MainActivity", "onCreate called")
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -53,16 +54,16 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        displayRandomImage()  //current city agi, te photo nahi aayi
+        // displayRandomImage()  //current city agi, te photo nahi aayi
 
-        setupSubmitButton()
+        // setupSubmitButton()
 
         // Handle bottom navigation item clicks
-        setupBottomNavigation()
+        // setupBottomNavigation()
 
     }
 
-
+    /*
     private fun setupSubmitButton() {
         // Handle submit button click for guessing
         binding.submitGuessButton.setOnClickListener {
@@ -113,14 +114,15 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun navigateToSettings() {
-        val intent = Intent(this, SettingsActivity::class.java)
-        startActivity(intent)
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController.navigate(R.id.navigation_settings)
     }
 
     private fun navigateToLeaderboard() {
-        val intent = Intent(this, LeaderboardActivity::class.java)
-        startActivity(intent)
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController.navigate(R.id.navigation_leaderboard)
     }
+
 
     private fun isCorrectAnswer(userGuess: String): Boolean {
 
@@ -164,4 +166,6 @@ class MainActivity : AppCompatActivity() {
         // Start the CongratulationsActivity
         startActivity(intent)
     }
+
+     */
 }
