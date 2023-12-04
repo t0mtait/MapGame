@@ -7,12 +7,7 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/baseline_play_arrow_24"
-        android:title="Play" />
-
-    <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_leaderboard"
         android:icon="@drawable/baseline_leaderboard_24"
         android:title="@string/title_notifications" />
 
