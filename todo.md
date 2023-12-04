@@ -2,17 +2,16 @@
 
 ### MUST DO
 - COMPLETE random level in 'Play' Screen (1st item in navbar) on Startup
-- COMPLETE 'Submit' button logic-checking
+- COMPLETE 'Submit' button logic-checking and point distribution
 - show completed levels / cities in 'Gallery' screen (2nd item in navbar)
 - COMPLETE User registration is not creating 'Username' or 'SolvedChallenges' fields on new User objects
-- navbar not working in settings and leaderboard screen
-- COMPLETE points rewarding
-- leaderboard not sorting by points properly
+- fix layout of main screen - button not displaying on small devices, image resized on larger devices
+- add NAVBAR in leaderboard, settings screens
 
 ### SHOULD DO
 - add a 'Skip' button on play screen to try a different city
 - add gesture tracking -> SHAKE to skip city ( i think we're supposed to include some sort of gesture in our app according to guidelines)
-- restyle leaderboard screen (bigger username, points on right side?)
+- COMPLETE restyle leaderboard screen (bigger username, points on right side?)
 
 
 
