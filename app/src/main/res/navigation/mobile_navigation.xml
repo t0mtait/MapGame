@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="ca.unb.mobiledev.mapgame.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="Play"
         tools:layout="@layout/fragment_home" />
 
     <fragment
