@@ -3,7 +3,7 @@
 ### MUST DO
 - COMPLETE random level in 'Play' Screen (1st item in navbar) on Startup
 - COMPLETE 'Submit' button logic-checking and point distribution
-- show completed levels / cities in 'Gallery' screen (2nd item in navbar)
+- SCRAPPED show completed levels / cities in 'Gallery' screen (2nd item in navbar)
 - COMPLETE User registration is not creating 'Username' or 'SolvedChallenges' fields on new User objects
 - fix layout of main screen - button not displaying on small devices, image resized on larger devices
 - add NAVBAR in leaderboard, settings screens
