@@ -6,6 +6,7 @@
 - show completed levels / cities in 'Gallery' screen (2nd item in navbar)
 - COMPLETE User registration is not creating 'Username' or 'SolvedChallenges' fields on new User objects
 - fix layout of main screen - button not displaying on small devices, image resized on larger devices
+- add NAVBAR in leaderboard, settings screens
 
 ### SHOULD DO
 - add a 'Skip' button on play screen to try a different city
