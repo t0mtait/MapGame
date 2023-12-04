@@ -19,6 +19,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.unb.mobiledev.mapgame.databinding.FragmentLeaderboardBinding;
 import ca.unb.mobiledev.mapgame.model.User;
 import ca.unb.mobiledev.mapgame.model.UserAdapter;
 
@@ -29,6 +30,8 @@ public class LeaderboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FragmentLeaderboardBinding binding = FragmentLeaderboardBinding.inflate(getLayoutInflater());
+
         Log.w(TAG, "Leaderboard activity CREATED");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_leaderboard);
