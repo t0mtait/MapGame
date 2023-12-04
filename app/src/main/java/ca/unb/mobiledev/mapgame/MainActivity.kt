@@ -11,24 +11,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import ca.unb.mobiledev.mapgame.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import org.xmlpull.v1.XmlPullParser
 import kotlin.random.Random
-
 
 // Define the CityInfo data class here
 data class CityInfo(val cityName: String, val imageName: String, val drawableResourceId: Int)
 
 class MainActivity : AppCompatActivity() {
 
-
-
     private lateinit var binding: ActivityMainBinding
-
-
     private val cityNamesArray by lazy {
         resources.getStringArray(R.array.city_names)
     }
@@ -37,11 +27,11 @@ class MainActivity : AppCompatActivity() {
         resources.getStringArray(R.array.city_drawables)
     }
 
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val displayedImages = mutableSetOf<String>()
+    private val displayedImagesDrawables = mutableSetOf<String>()
 
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private var currentCityName: String = ""
-
+    private var currentCityNameDrawable: String = ""
     private var currentImageId: Int = 0 // Variable to store the resource ID of the currently displayed image
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-//        val cityImagesArray: Array<Array<String>> = resources.getStringArray(R.array.city_images).map {
-//            it.split(",").toTypedArray()
-//        }.toTypedArray()
+
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
@@ -86,13 +74,12 @@ class MainActivity : AppCompatActivity() {
                 awardPoints()
                 Toast.makeText(this, "Correct answer! You earned points.", Toast.LENGTH_SHORT)
                     .show()
-                // Move to the next challenge: generate a new image
-                //currentCityName = getRandomCityName()
                 binding.guessInput.text.clear()
+                displayedImages.add(currentCityName)
+                displayedImagesDrawables.add(currentCityNameDrawable)
                 displayRandomImage()
             } else {
                 Toast.makeText(this, "Incorrect answer. Try again.", Toast.LENGTH_SHORT).show()
-                // Clear the previous guess
                 binding.guessInput.text.clear()
             }
         }
@@ -136,9 +123,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isCorrectAnswer(userGuess: String): Boolean {
-        // Get the correct city name associated with the currently displayed image
-        val correctCityInfo = getCorrectCityInfo()
-
 
         // Compare the user's guess with the correct city name (case insensitive)
         val isCorrect = userGuess.equals(currentCityName, ignoreCase = true)
@@ -148,127 +132,36 @@ class MainActivity : AppCompatActivity() {
         return isCorrect
     }
 
-    private fun getCorrectCityInfo(): CityInfo? {
-
-        // Get the resource ID of the currently displayed image
-        val randomImageId = resources.getIdentifier(currentCityName, "drawable", packageName)
-
-        // Load the XML data from the resource
-        val parser = resources.getXml(R.xml.allcitiesinfo)
-
-        while (parser.eventType != XmlPullParser.END_DOCUMENT) {
-            if (parser.eventType == XmlPullParser.START_TAG && parser.name == "item") {
-                val cityInfo = parseCityInfo(parser)
-
-                // Log information for debugging
-                Log.d("CityInfoDebug", "Parsed City Info: $cityInfo, Image Id: $randomImageId, currentCityName: $currentCityName")
-
-                // Check if the resource ID matches the given image ID
-                if (cityInfo.drawableResourceId != 0 && cityInfo.drawableResourceId == randomImageId) {
-                    Log.d("CityInfoDebug", "Matched! Image ID: $randomImageId, City Info: $cityInfo")
-
-                    // Return the correct city information for the matched image ID
-                    return cityInfo
-                }
-            }
-            parser.next()
-        }
-
-        // Return null if no match is found
-        return null
-    }
-
-    private fun getRandomImageId(): Int {
-        // Get the total number of city names in the array
-        val totalCityNames = cityNamesArray.size
-
-        // Generate a random index
-        val randomIndex = Random.nextInt(totalCityNames)
-
-        // Get the city name at the randomly selected index
-        val randomCityName = cityNamesArray[randomIndex]
-
-        // Log or use the randomCityName as needed
-        Log.d("RandomCityName", randomCityName)
-
-        // Use the city name to get the corresponding drawable resource ID
-        return resources.getIdentifier(randomCityName, "drawable", packageName)
-    }
-
-
-    private fun parseCityInfo(parser: XmlPullParser): CityInfo {
-        var eventType = parser.eventType
-        var cityName = ""
-        var imageName = ""
-        var drawableResourceId = 0
-
-        while (!(eventType == XmlPullParser.END_TAG && parser.name == "item")) {
-            when (eventType) {
-                XmlPullParser.START_TAG -> when (parser.name) {
-                    "name" -> cityName = parseTextContent(parser)
-                    "imageName" -> imageName = parseTextContent(parser)
-                    "drawable" -> drawableResourceId = parseDrawableResourceId(parser)
-                }
-            }
-            eventType = parser.next()
-        }
-
-        return CityInfo(cityName, imageName, drawableResourceId)
-    }
-
-    private fun parseTextContent(parser: XmlPullParser): String {
-        val eventType = parser.next()
-
-        return if (eventType == XmlPullParser.TEXT) {
-            parser.text
-        } else {
-            ""
-        }
-    }
-
-    private fun parseDrawableResourceId(parser: XmlPullParser): Int
-    {
-        val eventType = parser.next()
-
-        return if (eventType == XmlPullParser.TEXT) {
-            // Assuming the drawable reference is stored as text content of the <drawable> tag
-            resources.getIdentifier(parser.text, "drawable", packageName)
-        } else {
-            0
-        }
-    }
 
     private fun awardPoints() {
-        val db = FirebaseFirestore.getInstance()
-        // Query the users collection for the document with the matching email
-        val userEmail = auth.currentUser?.email
-        db.collection("users")
-            .whereEqualTo("email", userEmail)
-            .get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    for (document in task.result!!) {
-                        // Update the points field for the found document
-                        document.reference.update("points", FieldValue.increment(100) )
-                            .addOnSuccessListener {
-                                // Handle success
-                                println("Points updated successfully!")
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle failure
-                                println("Failed to update points: ${e.message}")
-                            }
-                    }
-                } else {
-                    // Handle error getting documents
-                    println("Error getting documents: ${task.exception}")
-                }
-            }
+        // Add your logic to award points to the user
+        // For example, update a variable to store the user's points
+
     }
 
     private fun displayRandomImage() {
-        val randomImageId = resources.getIdentifier(getRandomCityDrawable(), "drawable", packageName)
-        Log.e("DisplayRandomImageID", "Invalid resource ID for image: $randomImageId")
-        binding.cityImage.setImageResource(randomImageId)
+        // Filter out displayed images
+        val availableImages = cityNamesArray.filter { !displayedImages.contains(it) }
+        val availableImagesDrawables = drawableName.filter {!displayedImagesDrawables.contains(it)  }
+        if (availableImages.isNotEmpty()) {
+            val randomIndex = Random.nextInt(availableImages.size)
+            currentCityName = availableImages[randomIndex]
+            currentCityNameDrawable = availableImagesDrawables[randomIndex]
+            val randomImageId = resources.getIdentifier(currentCityNameDrawable, "drawable", packageName)
+            Log.d("DisplayRandomImageID", "Displaying image for city: $currentCityName")
+            binding.cityImage.setImageResource(randomImageId)
+        } else {
+            // Handle the case where all images have been displayed
+            Log.d("DisplayRandomImageID", "All images have been displayed")
+            Toast.makeText(this, "You've completed all challenges!", Toast.LENGTH_SHORT).show()
+            moveToCongratulationsActivity()
+        }
+    }
+
+    private fun moveToCongratulationsActivity() {
+        val intent = Intent(this, CongratulationsActivity::class.java)
+
+        // Start the CongratulationsActivity
+        startActivity(intent)
     }
 }
