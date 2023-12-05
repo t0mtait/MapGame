@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private var currentImageId: Int = 0 // Variable to store the resource ID of the currently displayed image
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        auth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
         Log.d("MainActivity", "onCreate called")
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -139,9 +140,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun awardPoints()
     {
+        println("connecting to db...")
         val db = FirebaseFirestore.getInstance()
         // Query the users collection for the document with the matching email
         val userEmail = auth?.currentUser?.email
+        println(userEmail)
+
         db.collection("users")
             .whereEqualTo("email", userEmail)
             .get()
