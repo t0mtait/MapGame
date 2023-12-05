@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import ca.unb.mobiledev.mapgame.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
@@ -19,6 +20,7 @@ import kotlin.random.Random
 data class CityInfo(val cityName: String, val imageName: String, val drawableResourceId: Int)
 
 class MainActivity : AppCompatActivity() {
+    var auth: FirebaseAuth? = null
 
     private lateinit var binding: ActivityMainBinding
     private val cityNamesArray by lazy {
@@ -139,7 +141,7 @@ class MainActivity : AppCompatActivity() {
     {
         val db = FirebaseFirestore.getInstance()
         // Query the users collection for the document with the matching email
-        val userEmail = auth.currentUser?.email
+        val userEmail = auth?.currentUser?.email
         db.collection("users")
             .whereEqualTo("email", userEmail)
             .get()
