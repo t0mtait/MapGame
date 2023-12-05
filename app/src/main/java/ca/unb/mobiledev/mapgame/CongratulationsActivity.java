@@ -33,5 +33,15 @@ public class CongratulationsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button settingsButton = findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent(CongratulationsActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
