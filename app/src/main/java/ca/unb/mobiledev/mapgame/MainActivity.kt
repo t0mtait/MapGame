@@ -31,12 +31,17 @@ class MainActivity : AppCompatActivity() {
         resources.getStringArray(R.array.city_drawables)
     }
 
+    private val hints by lazy {
+        resources.getStringArray(R.array.city_hints)
+    }
+
     private val displayedImages = mutableSetOf<String>()
     private val displayedImagesDrawables = mutableSetOf<String>()
+    private val displayedHints = mutableSetOf<String>()
+
 
     private var currentCityName: String = ""
     private var currentCityNameDrawable: String = ""
-    private var currentImageId: Int = 0 // Variable to store the resource ID of the currently displayed image
 
     override fun onCreate(savedInstanceState: Bundle?) {
         auth = FirebaseAuth.getInstance()
@@ -178,6 +183,11 @@ class MainActivity : AppCompatActivity() {
             val randomIndex = Random.nextInt(availableImages.size)
             currentCityName = availableImages[randomIndex]
             currentCityNameDrawable = availableImagesDrawables[randomIndex]
+
+            val originalIndex = cityNamesArray.indexOf(currentCityName)
+            val cityHint = hints[originalIndex]
+            binding.hintsText.text = cityHint
+
             val randomImageId = resources.getIdentifier(currentCityNameDrawable, "drawable", packageName)
             Log.d("DisplayRandomImageID", "Displaying image for city: $currentCityName")
             binding.cityImage.setImageResource(randomImageId)

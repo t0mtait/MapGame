@@ -20,6 +20,16 @@
         <item>tokyo</item>
     </array>
 
+    <!-- Array Resource for Hints -->
+    <string-array name="city_hints">
+        <item>Hint: The city is known as "The Big Apple" and has a famous skyline featuring the Statue of Liberty.(County:U.S., No. of ch.:7)</item>
+        <item>Hint: The city is famous for its romantic ambiance and the Eiffel Tower.(County:Paris, No. of ch.:5)</item>
+        <item>Hint: The city is known for the Golden Gate Bridge and tech innovation.(County:U.S., No. of ch.:11)</item>
+        <item>Hint: The city is known for its diverse culture, CN Tower, and being a major financial hub in Canada.(County:Toronto, No. of ch.:7)</item>
+        <item>Hint: The city is famous for its opera house and kangaroos.(County:Sydney, No. of ch.:6)</item>
+        <item>Hint: The city is known for its advanced technology and cherry blossoms.(County:Tokyo, No. of ch.:5)</item>
+    </string-array>
+
     <!-- Array Resource for Reply Values -->
     <string-array name="reply_values">
         <item>reply</item>
