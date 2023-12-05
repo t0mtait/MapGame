@@ -2,6 +2,7 @@ package ca.unb.mobiledev.mapgame
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -29,6 +30,12 @@ class MainActivity : AppCompatActivity() {
     private val sharedPreferences by lazy {
         getSharedPreferences("completed_activities", Context.MODE_PRIVATE)
     }
+
+    private val userSharedPreferences: SharedPreferences by lazy {
+        val userEmail = auth?.currentUser?.email ?: "default_user"
+        getSharedPreferences("completed_activities_$userEmail", Context.MODE_PRIVATE)
+    }
+
 
     private val cityNamesArray by lazy {
         resources.getStringArray(R.array.city_names)
@@ -76,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         // Load completed activities from SharedPreferences
-        displayedImages.addAll(sharedPreferences.all.filterValues { it as Boolean }.keys)
+        displayedImages.addAll(userSharedPreferences.all.filterValues { it as Boolean }.keys)
 
         // Check if all activities are completed
         if (isAllActivitiesCompleted()) {
@@ -258,7 +265,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun markActivityAsCompleted(cityName: String) {
         // Use SharedPreferences to mark the activity as completed
-        val editor = sharedPreferences.edit()
+        val editor = userSharedPreferences.edit()
         editor.putBoolean(cityName, true)
         editor.apply()
     }
