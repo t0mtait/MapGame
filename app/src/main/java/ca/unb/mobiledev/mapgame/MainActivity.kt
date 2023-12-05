@@ -3,6 +3,7 @@ package ca.unb.mobiledev.mapgame
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -52,6 +53,11 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
+        val hintText = findViewById<View>(R.id.hintsText)
+
+        // Set the opacity to 0 (completely transparent)
+        hintText.alpha = 0f
+
 
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -66,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         displayRandomImage()  //current city agi, te photo nahi aayi
 
         setupSubmitButton()
+        setupHintButton()
 
         // Handle bottom navigation item clicks
         setupBottomNavigation()
@@ -73,23 +80,48 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun setupSubmitButton() {
-        // Handle submit button click for guessing
+    private fun setupHintButton() {
+        val hintText = findViewById<View>(R.id.hintsText)
+        if (hintText.alpha == 1f) {
+            Toast.makeText(this, "Hint already given", Toast.LENGTH_SHORT).show()
+        } else {
+            binding.showHintButton.setOnClickListener {
+                Log.d("HintButtonTest", "Hint button clicked")
+                hintText.alpha = 1f
+                Toast.makeText(this, "Hint now visible", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setupSubmitButton()
+    {
+
         binding.submitGuessButton.setOnClickListener {
+            var pointsToAward = 100.0
+            val hintText = findViewById<View>(R.id.hintsText)
+            if (hintText.alpha == 1f)
+            {
+                pointsToAward = 50.0
+            }
+            hintText.alpha = 0f
             Log.d("SubmitButtonClickTest", "Submit button clicked")
             val userGuess = binding.guessInput.text.toString()
 
             // Check if the user's guess is correct
             if (isCorrectAnswer(userGuess)) {
-                awardPoints()
-                Toast.makeText(this, "Correct answer! You earned points.", Toast.LENGTH_SHORT)
+                awardPoints(pointsToAward)
+                Toast.makeText(this, "Correct answer! You earned " + pointsToAward + "points!", Toast.LENGTH_SHORT)
                     .show()
                 binding.guessInput.text.clear()
                 displayedImages.add(currentCityName)
                 displayedImagesDrawables.add(currentCityNameDrawable)
                 displayRandomImage()
             } else {
-                Toast.makeText(this, "Incorrect answer. Try again.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Correct answer! You earned $pointsToAward points!",
+                    Toast.LENGTH_SHORT
+                ).show()
                 binding.guessInput.text.clear()
             }
         }
@@ -143,7 +175,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun awardPoints()
+    private fun awardPoints(points: Double)
     {
         println("connecting to db...")
         val db = FirebaseFirestore.getInstance()
@@ -158,7 +190,7 @@ class MainActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     for (document in task.result!!) {
                         // Update the points field for the found document
-                        document.reference.update("points", FieldValue.increment(100) )
+                        document.reference.update("points", FieldValue.increment(points) )
                             .addOnSuccessListener {
                                 // Handle success
                                 println("Points updated successfully!")
