@@ -11,6 +11,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import ca.unb.mobiledev.mapgame.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.random.Random
 
 // Define the CityInfo data class here
@@ -133,10 +135,33 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun awardPoints() {
-        // Add your logic to award points to the user
-        // For example, update a variable to store the user's points
-
+    private fun awardPoints()
+    {
+        val db = FirebaseFirestore.getInstance()
+        // Query the users collection for the document with the matching email
+        val userEmail = auth.currentUser?.email
+        db.collection("users")
+            .whereEqualTo("email", userEmail)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        // Update the points field for the found document
+                        document.reference.update("points", FieldValue.increment(100) )
+                            .addOnSuccessListener {
+                                // Handle success
+                                println("Points updated successfully!")
+                            }
+                            .addOnFailureListener { e ->
+                                // Handle failure
+                                println("Failed to update points: ${e.message}")
+                            }
+                    }
+                } else {
+                    // Handle error getting documents
+                    println("Error getting documents: ${task.exception}")
+                }
+            }
     }
 
     private fun displayRandomImage() {
