@@ -29,6 +29,10 @@
             android:exported="false"
             android:theme="@style/Theme.Material3.Dark.NoActionBar" />
         <activity
+            android:name=".CongratulationsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.Material3.Dark.NoActionBar">
