@@ -1,5 +1,6 @@
 package ca.unb.mobiledev.mapgame
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +24,11 @@ class MainActivity : AppCompatActivity() {
     var auth: FirebaseAuth? = null
 
     private lateinit var binding: ActivityMainBinding
+
+    private val sharedPreferences by lazy {
+        getSharedPreferences("completed_activities", Context.MODE_PRIVATE)
+    }
+
     private val cityNamesArray by lazy {
         resources.getStringArray(R.array.city_names)
     }
@@ -63,6 +69,15 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        // Load completed activities from SharedPreferences
+        displayedImages.addAll(sharedPreferences.all.filterValues { it as Boolean }.keys)
+
+        // Check if all activities are completed
+        if (isAllActivitiesCompleted()) {
+            moveToCongratulationsActivity()
+            return
+        }
+
         displayRandomImage()  //current city agi, te photo nahi aayi
 
         setupSubmitButton()
@@ -72,6 +87,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun isAllActivitiesCompleted(): Boolean {
+        // Check if all activities are completed by comparing with the total number of activities
+        return displayedImages.size == cityNamesArray.size
+    }
 
     private fun setupSubmitButton() {
         // Handle submit button click for guessing
@@ -179,7 +198,7 @@ class MainActivity : AppCompatActivity() {
         // Filter out displayed images
         val availableImages = cityNamesArray.filter { !displayedImages.contains(it) }
         val availableImagesDrawables = drawableName.filter {!displayedImagesDrawables.contains(it)  }
-        if (availableImages.isNotEmpty()) {
+        if (!isAllActivitiesCompleted()) {
             val randomIndex = Random.nextInt(availableImages.size)
             currentCityName = availableImages[randomIndex]
             currentCityNameDrawable = availableImagesDrawables[randomIndex]
@@ -191,12 +210,25 @@ class MainActivity : AppCompatActivity() {
             val randomImageId = resources.getIdentifier(currentCityNameDrawable, "drawable", packageName)
             Log.d("DisplayRandomImageID", "Displaying image for city: $currentCityName")
             binding.cityImage.setImageResource(randomImageId)
+            // Mark the current activity as completed
+            markActivityAsCompleted(currentCityName)
         } else {
             // Handle the case where all images have been displayed
             Log.d("DisplayRandomImageID", "All images have been displayed")
-            Toast.makeText(this, "You've completed all challenges!", Toast.LENGTH_SHORT).show()
+            if (isAllActivitiesCompleted()) {
+                moveToCongratulationsActivity()
+            } else {
+                Toast.makeText(this, "You've completed all challenges!", Toast.LENGTH_SHORT).show()
+            }
             moveToCongratulationsActivity()
         }
+    }
+
+    private fun markActivityAsCompleted(cityName: String) {
+        // Use SharedPreferences to mark the activity as completed
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(cityName, true)
+        editor.apply()
     }
 
     private fun moveToCongratulationsActivity() {
