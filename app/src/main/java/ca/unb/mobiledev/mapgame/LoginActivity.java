@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         buttonLogin = findViewById(R.id.btn_login);
         textView = findViewById(R.id.registerNow);
+
+        editTextPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         textView.setOnClickListener(new View.OnClickListener()
         {
