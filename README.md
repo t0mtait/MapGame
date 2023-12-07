@@ -1,6 +1,6 @@
 # City Guesser Game - CS2063 Fall 2023
 
-Welcome to the City Guesser game developed for the CS2063 Fall 2023 course at UNB. This repository contains the code for city guessur game associated with the course.
+Welcome to the City Guesser game developed for the CS2063 Fall 2023 course at UNB. This repository contains the code for city guesser game associated with the course.
 
 ## Android Studio
 
@@ -21,7 +21,7 @@ The City Guesser game is a lab project developed for the CS2063 course. It is a 
 - **Leaderboard:** A leaderboard displays points earned by users, creating a competitive environment among friends.
 
 ## Testing
-Test Case (Best done in the following order): 
+Test Case (Best done in the following order) with Pixel 4a device: 
  
 
 1. User Registration 
@@ -51,7 +51,7 @@ Test Case (Best done in the following order):
 ## Known bugs,problems, and temporary fixes:
 1. NAV Bar is not properly configured, use device’s back button after navigating to ‘Leaderboard’ or ‘Settings’ Views. 
 
-2. Closing and Re-opening the app when mid-level can de-sync the Current Hint, Solution, and City Image fields yielding a relatively broken game for the user. Do not close the app while levels are available to play. (If you do, create a new account and restart test case) 
+2. Closing and Re-opening the app when mid-level can de-sync the Current Hint, Solution, and City Image fields yielding a relatively broken game for the user. Do not close the app while levels are available to play. (If you do, create a new account and restart the test case) 
 
 3. Main screen’s layout can display improperly depending on the device’s screen size. Smaller screens cut off the ‘Submit’ and ‘Show hint’ buttons, and Larger screen display the City image improperly. 
 
