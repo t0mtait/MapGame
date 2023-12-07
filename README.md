@@ -1,4 +1,4 @@
-City Guesser Game - CS2063 Fall 2023
+# City Guesser Game - CS2063 Fall 2023
 
 Welcome to the City Guesser game developed for the CS2063 Fall 2023 course at UNB. This repository contains the code for city guessur game associated with the course.
 
