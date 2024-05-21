@@ -3,9 +3,11 @@
 Welcome to the City Guesser game developed for the CS2063 Fall 2023 course at UNB. This repository contains the code for city guesser game associated with the course.
 
 Initial ui mockup:
+
 https://www.figma.com/board/DQQYmh5FUAQYgvUcoCcNtE/mobile-app-project-sketch?node-id=0-1
 
 Final in-app images:
+
 https://imgur.com/a/lX40Mj1
 
 Contact me via email in case of URL failure(s): tomjtait@outlook.com
